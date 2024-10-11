@@ -56,12 +56,33 @@ void update_movement(t_info *info, double step_x, double step_y)
 				&& !is_opened(info, info->maps[(int)((y - val) / TILE_SIZE)][(int)(info->x_p / TILE_SIZE)], (int *)&y))
         			info->y_p = y;
 		}
-	x_p = (info->x_p + (step_x * 12)) / TILE_SIZE;
-	y_p = (info->y_p + (step_y * 12)) / TILE_SIZE;
-	if (info->maps[(int)(y / TILE_SIZE)][(int)(x / TILE_SIZE)] == 'P')
+	printf("step_x = %f and step_y = %f\n", step_x, step_y);
+	if (fabs(step_x) > fabs(step_y))
 	{
-		if (info->maps[(int)y_p][(int)x_p] != '1')
+		if (step_x < 0)
+			x_p = (info->x_p / TILE_SIZE) - 1;
+		else
+			x_p = (info->x_p / TILE_SIZE) + 1;
+		y_p = info->y_p / TILE_SIZE;
+	}
+	else
+	{
+		if (step_y < 0)
+			y_p = (info->y_p / TILE_SIZE) - 1;
+		else
 		{
+			printf("y _ pos\n");
+			y_p = (info->y_p / TILE_SIZE) + 1;
+		}
+		x_p = info->x_p / TILE_SIZE;
+	}
+	printf("px = %f py = %f x = %f y = %f\n", info->x_p / 60, info->y_p / 60, x_p, y_p);
+	if (info->maps[(int)(info->y_p / TILE_SIZE)][(int)(info->x_p / TILE_SIZE)] == 'P')
+	{
+		printf("on door\n");
+		if (info->maps[(int)y_p][(int)x_p] != '1' && info->maps[(int)y_p][(int)x_p] != 'P')
+		{
+			printf("simo li kayn\n");
 			info->x_p = x_p * TILE_SIZE;
 			info->y_p = y_p * TILE_SIZE;
 		}
