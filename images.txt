@@ -1,0 +1,12 @@
+kabos1.xpm
+new2.xpm
+new3.xpm
+new4.xpm
+s4.xpm
+s3.xpm
+s2.xpm
+s1.xpm
+control2.xpm
+control2.xpm
+control2.xpm
+control2.xpm
