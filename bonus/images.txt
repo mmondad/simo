@@ -1,0 +1,12 @@
+bonus/bonus_textures/kabos1.xpm
+bonus/bonus_textures/new2.xpm
+bonus/bonus_textures/new3.xpm
+bonus/bonus_textures/new4.xpm
+bonus/bonus_textures/s4.xpm
+bonus/bonus_textures/s3.xpm
+bonus/bonus_textures/s2.xpm
+bonus/bonus_textures/s1.xpm
+bonus/bonus_textures/control2.xpm
+bonus/bonus_textures/control2.xpm
+bonus/bonus_textures/control2.xpm
+bonus/bonus_textures/control2.xpm

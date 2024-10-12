@@ -6,11 +6,11 @@
 /*   By: khmessah <khmessah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 14:02:31 by khmessah          #+#    #+#             */
-/*   Updated: 2024/10/12 14:01:51 by khmessah         ###   ########.fr       */
+/*   Updated: 2024/10/10 15:11:55 by khmessah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 double	norm(double	angle)
 {
@@ -27,7 +27,7 @@ void	calcul_step(t_info *info, double count)
 	info->point_depart = (HEIGHT / 2) - (info->lenght / 2);
 	if (info->door_flag[0])
 		info->step = (double)info->texture[4].h / (double)info->lenght;
-	if (info->flag == 0)
+	else if (info->flag == 0)
 	{
 		if (info->check == 1 || info->check == 2)
 			info->step = (double)info->texture[1].h / (double)info->lenght;
@@ -88,6 +88,7 @@ void	drawing_wall_horizantal(t_info *info, int flag, double j)
 	else
 		info->color = 0;
 }
+
 void	drawing_floor(t_info *info, double z)
 {
 	int	j;
@@ -100,6 +101,7 @@ void	drawing_floor(t_info *info, double z)
 		j += info->step;
 	}
 }
+
 void	drawing_all_wall(t_info *info, double j)
 {
 	if (info->flag == 0)
@@ -146,14 +148,18 @@ void	draw_vector(t_info *info)
 			info->point_depart++;
 			j += info->step;
 		}
+		j  = info->step * info->lenght;
 		while (info->point_depart < HEIGHT)
 		{
-			my_mlx_pixel_put(info, (int)z, (int)info->point_depart, 0);
+			drawing_all_wall(info, j);
+			my_mlx_pixel_put(info, (int)z, (int)info->point_depart,  info->color + 10);
 			info->point_depart++;
+			j -= info->step;
 		}
 		z += 1;
 		count = count + RAD / (VIEW * 2);
 		info->door_flag[0] = 0;
 		info->door_flag[1] = 0;
 	}
+	render_minimap(info);
 }

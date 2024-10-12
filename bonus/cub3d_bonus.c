@@ -6,11 +6,11 @@
 /*   By: khmessah <khmessah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 08:46:02 by mmondad           #+#    #+#             */
-/*   Updated: 2024/10/12 14:24:36 by khmessah         ###   ########.fr       */
+/*   Updated: 2024/10/10 15:12:35 by khmessah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 void	clean_line(t_info *info, char *line)
 {
@@ -38,16 +38,25 @@ void    new_maps(t_info *info)
 		i++;
 	}	
 }
-void	init_texture(t_info *info)
+	void	init_texture(t_info *info)
 {
-	info->texture[0].xpm_ptr = mlx_xpm_file_to_image(info->mlx, "texture/mur_1.xpm", &info->texture[0].w, &info->texture[0].h);
+	info->texture[0].xpm_ptr = mlx_xpm_file_to_image(info->mlx, "bonus/walls_textures/mur_1.xpm", &info->texture[0].w, &info->texture[0].h);
 	info->texture[0].image = mlx_get_data_addr(info->texture[0].xpm_ptr, &info->texture[0].bet_pxl, &info->texture[0].size_line, &info->texture[0].endn);
-	info->texture[1].xpm_ptr = mlx_xpm_file_to_image(info->mlx, "texture/mur_2.xpm", &info->texture[1].w, &info->texture[1].h);
+
+	info->texture[1].xpm_ptr = mlx_xpm_file_to_image(info->mlx, "bonus/walls_textures/mur_2.xpm", &info->texture[1].w, &info->texture[1].h);
 	info->texture[1].image = mlx_get_data_addr(info->texture[1].xpm_ptr, &info->texture[1].bet_pxl, &info->texture[1].size_line, &info->texture[1].endn);
-	info->texture[2].xpm_ptr = mlx_xpm_file_to_image(info->mlx, "texture/ps3.xpm", &info->texture[2].w, &info->texture[2].h);
+
+	info->texture[2].xpm_ptr = mlx_xpm_file_to_image(info->mlx, "bonus/walls_textures/ps3.xpm", &info->texture[2].w, &info->texture[2].h);
 	info->texture[2].image = mlx_get_data_addr(info->texture[2].xpm_ptr, &info->texture[2].bet_pxl, &info->texture[2].size_line, &info->texture[2].endn);
-	info->texture[3].xpm_ptr = mlx_xpm_file_to_image(info->mlx, "texture/prison_lux1.xpm", &info->texture[3].w, &info->texture[3].h);
+
+	info->texture[3].xpm_ptr = mlx_xpm_file_to_image(info->mlx, "bonus/walls_textures/prison_lux1.xpm", &info->texture[3].w, &info->texture[3].h);
 	info->texture[3].image = mlx_get_data_addr(info->texture[3].xpm_ptr, &info->texture[3].bet_pxl, &info->texture[3].size_line, &info->texture[3].endn);
+												/*    bunus      */
+	info->texture[4].xpm_ptr = mlx_xpm_file_to_image(info->mlx, "bonus/bonus_textures/port_f.xpm", &info->texture[4].w, &info->texture[4].h);
+	info->texture[4].image = mlx_get_data_addr(info->texture[4].xpm_ptr, &info->texture[4].bet_pxl, &info->texture[4].size_line, &info->texture[4].endn);
+
+	info->texture[5].xpm_ptr = mlx_xpm_file_to_image(info->mlx, "bonus/bonus_textures/port_o.xpm", &info->texture[5].w, &info->texture[5].h);
+	info->texture[5].image = mlx_get_data_addr(info->texture[5].xpm_ptr, &info->texture[5].bet_pxl, &info->texture[5].size_line, &info->texture[5].endn);
 }
 
 int	check_valide_mur(t_info *info)
@@ -90,11 +99,48 @@ int check_element_maps(t_info *info)
 	return (1);
 }
 
+int mouve_mouse(int x, int y, t_info *info)
+{
+	static int a;
+	if (x > a)
+		info->angle += 0.01;
+	else if (x < a)
+		info->angle -= 0.01;
+	a = x;
+	return (0);
+}
+
 void	*checker(t_info *info, void	*data)
 {
 	if (!data)
 		free_list(info, 1);
 	return (data);
+}
+
+void	init_images(t_info *info)
+{
+	int x;
+	int y;
+	int fd;
+	char *line;
+
+	fd = open("bonus/images.txt", O_RDONLY);
+	y = 0;
+	while (y < WEAPONS)
+	{
+		x = 0;
+		while(x < 4)
+		{
+			line = get_next_line(fd, info);
+			line[ft_strlen(line) - 1] = '\0';
+			info->images[y][x].xpm_ptr = checker(info, mlx_xpm_file_to_image(info->mlx, line,
+				&info->images[y][x].w, &info->images[y][x].h));
+			info->images[y][x].image = checker(info, mlx_get_data_addr(info->images[y][x].xpm_ptr,
+				&info->images[y][x].bet_pxl, &info->images[y][x].size_line, &info->images[y][x].endn));
+			x++;
+		}
+		y++;
+	}
 }
 
 int main(int ac, char **av)
@@ -120,10 +166,16 @@ int main(int ac, char **av)
 		return (0);
 	}
 	init_window(&info);
+
+	/* animation */
+
+	init_images(&info);
 	init_texture(&info);
+	/* end */
+
 	mlx_hook(info.mlx_win, 17, 0, ft_exit, 0);
 	mlx_hook(info.mlx_win, 2, 1L << 0, move_player, &info);
-	mlx_loop_hook(info.mlx, rendering_2d, &info);
+	mlx_hook(info.mlx_win, 6, 1 << 6 , mouve_mouse , &info);
 	mlx_loop(info.mlx);
 	free_list(&info, 0);
 }

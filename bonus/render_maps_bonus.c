@@ -6,11 +6,11 @@
 /*   By: khmessah <khmessah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 13:54:25 by khmessah          #+#    #+#             */
-/*   Updated: 2024/10/12 13:12:28 by khmessah         ###   ########.fr       */
+/*   Updated: 2024/10/08 10:55:11 by khmessah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 void    put_pixels_as_image(t_info *info, int i, int j, long color)
 {
@@ -125,6 +125,8 @@ int    rendering_2d(t_info *info)
 		i++;
 	}
 	draw_vector(info);
+	render_minimap(info);
+	animation(info);
 	mlx_put_image_to_window(info->mlx, info->mlx_win, info->img, 0, 0);
 	mlx_destroy_image (info->mlx, info->img);
 	return (0);

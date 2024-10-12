@@ -1,16 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_info.c                                        :+:      :+:    :+:   */
+/*   init_info_bonnus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: khmessah <khmessah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/12 13:52:02 by khmessah          #+#    #+#             */
-/*   Updated: 2024/10/12 13:52:04 by khmessah         ###   ########.fr       */
+/*   Created: 2024/10/12 14:16:43 by khmessah          #+#    #+#             */
+/*   Updated: 2024/10/12 16:15:06 by khmessah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonnus.h"
+
+void    init_start_images(t_info *info)
+{
+    int w;
+    int h;
+
+    info->start_images[0].xpm_ptr = mlx_xpm_file_to_image(info->mlx, "bonus/bonus_textures/presentation.xpm", &w, &h);
+    printf("simo->%p\n",  info->start_images[0].xpm_ptr);
+    mlx_put_image_to_window(info->mlx, info->mlx_win, info->start_images[0].xpm_ptr, 0, 0 );
+}
+
 
 void    init_info(t_info *info, int ac, char **av)
 {

@@ -65,7 +65,6 @@ typedef	struct	s_info
 	double 		lenght;
 	double		point_depart;
 	t_image		texture[6];
-	t_image		esp;
 	/*                 colors               */
 	int			f_color_int;
 	int			c_color_int;
@@ -153,26 +152,20 @@ typedef	struct	s_info
 
 
 /*         bonus       */
-int is_opened(t_info *info, char c, int *x);
-
-
-
-
-
-
+int		is_opened(t_info *info, char c, int *x);
+int		door_validator(t_info *info, int x, int y);
+void	render_minimap(t_info *info);
+/*         bonus       */
 
 
 		/*          validators          */
 void    init_start_images(t_info *info);
-void	render_minimap(t_info *info);
 double	norm(double	angle);
 int		create_trgb(int t, int r, int g, int b);
 int		move_player(int c, t_info *info);
-int 	putnum(long num);
-void	compare_distance(t_info *info, double angle);
+void	compare_distance(t_info *info);
 void	check_intersections_hor(t_info *info, double angle);
 void	check_intersections_vir(t_info *info, double angle);
-void	draw_square_t(t_info *info);
 void	draw_square(t_info *info);
 void	draw_vector(t_info *info);
 void	design_point_haut(t_info *info);
@@ -182,11 +175,9 @@ void	calcul_distance(t_info *info, double angle);
 void    init_window(t_info *info);
 void	conditions(t_info *info, double angle);
 void	init_angle(t_info *info);
-void	render_player(t_info *info, int color);
 int    	rendering_2d(t_info *info);
 void	draw_vector(t_info *info);
 int		is_player(char  c);
-void	render_player(t_info *info, int color);
 int		is_space(char c);
 void	my_mlx_pixel_put(t_info *info, int x, int y, int color);
 int		ft_exit();

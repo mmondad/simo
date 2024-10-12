@@ -2,7 +2,7 @@
 
 /*          unused functions         */
 
-
+#include "cub3d_bonus.h"
 int		ft_atoi_base(const char *str, int str_base)
 {
 	int result;
