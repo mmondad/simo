@@ -1,6 +1,5 @@
 #include "cub3d.h"
 
-
 int	ft_atoi(char *str, int i, int sign)
 {
 	int	result;
@@ -101,7 +100,8 @@ int ft_check_crct(char *str)
 
 int check_collone(char *maps)
 {
-	if ((!is_space(maps[0]) && maps[0] != '1') || (!is_space(maps[ft_strlen(maps) - 2]) && maps[ft_strlen(maps) - 2] != '1') || !ft_check_crct(maps))
+	if ((!is_space(maps[0]) && maps[0] != '1') || (!is_space(maps[ft_strlen(maps) - 2]) &&
+		maps[ft_strlen(maps) - 2] != '1') || !ft_check_crct(maps))
 		return (0);
 	return (1);
 }
@@ -119,20 +119,18 @@ void    check_wall_valide(t_info *info)
 	int i;
 
 	i = 0;
+	if (check_ligne(info->maps[0]) == 0)
+		print_error("wall_line_1\n");
 	while (info->maps[i])
 	{
 		if (is_map(info->maps[i]))
-		{ 
+		{
 			if (!ft_check_crct((info->maps[i])))
 				print_error("invalid_caracter\n");
 			if(is_map(info->maps[i]))
 				info->last_line = i;
-			if (check_ligne(info->maps[0]) == 0)
-				print_error("wall_line_1\n");
 			if (check_collone(info->maps[i]) == 0)
-			{
 				print_error("wall_collone\n");
-			}
 		}
 		 i++;
 	}

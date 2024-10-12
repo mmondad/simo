@@ -150,7 +150,7 @@ void	draw_vector(t_info *info)
 		while (info->point_depart < HEIGHT)
 		{
 			drawing_all_wall(info, j);
-			my_mlx_pixel_put(info, (int)z, (int)info->point_depart,  info->color);
+			my_mlx_pixel_put(info, (int)z, (int)info->point_depart,  info->color + 10);
 			info->point_depart++;
 			j -= info->step;
 		}

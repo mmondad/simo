@@ -14,26 +14,29 @@
 
 void    check_nbr_player(t_info *info)
 {
-    int i;
-    int countn;
+    int x;
+    int count;
     int y;
 
-    countn = 0;
-    i = 0;
+    count = 0;
     y = 0;
-    while (info->maps[i])
+    while (info->maps[y])
     {
-        y = 0;
-        while (info->maps[i][y])
+        x = 0;
+        while (info->maps[y][x])
         {
-            if (info->maps[i][y]== 'N' || info->maps[i][y] == 'S'
-                || info->maps[i][y] == 'W' || info->maps[i][y] == 'E')
-                countn++;
-            y++;
+            /* bonus */
+            if (info->maps[y][x] == 'P' && x && y && !door_validator(info, x, y))
+                print_error("error_in_door_stat\n");
+            /* bonus */
+            if (info->maps[y][x] == 'N' || info->maps[y][x] == 'S'
+                || info->maps[y][x] == 'W' || info->maps[y][x] == 'E')
+                count++;
+            x++;
         }
-        i++;
+        y++;
     }
-    if (countn > 1 || countn == 0)
+    if (count > 1 || count == 0)
         print_error("player\n");
 }
 
