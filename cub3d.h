@@ -5,7 +5,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <fcntl.h>
-# include "mlx/mlx.h"
+# include <mlx.h>
 # include <math.h>
 
 

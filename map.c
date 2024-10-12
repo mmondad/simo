@@ -63,7 +63,6 @@ void    add_player(t_info *info)
 	}
 } 
 
-
 void render_minimap(t_info *info)
 {
 	double unit_size = SQUARE_SIZE / info->width;

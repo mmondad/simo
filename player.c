@@ -12,28 +12,6 @@
 
 #include "cub3d.h"
 
-int	skip_door(t_info *info, double step_x, double step_y)
-{
-	double x;
-	double y;
-
-	x = info->x_p;
-	y = info->y_p;
-	while (info->maps[(int)(y / TILE_SIZE)][(int)(x / TILE_SIZE)] == 'P')
-	{
-		x += step_x;
-		y += step_y;
-		if (info->maps[(int)(y / TILE_SIZE)][(int)(x / TILE_SIZE)] != '1'
-			&& info->maps[(int)(y / TILE_SIZE)][(int)(x / TILE_SIZE)] != 'P')
-		{
-			info->x_p = x;
-			info->y_p = y;
-			return (0);
-		}
-	}
-	return (1);
-}
-
 void update_movement(t_info *info, double step_x, double step_y)
 {
     double x = info->x_p + step_x;
@@ -56,7 +34,6 @@ void update_movement(t_info *info, double step_x, double step_y)
 				&& !is_opened(info, info->maps[(int)((y - val) / TILE_SIZE)][(int)(info->x_p / TILE_SIZE)], (int *)&y))
         			info->y_p = y;
 		}
-	printf("step_x = %f and step_y = %f\n", step_x, step_y);
 	if (fabs(step_x) > fabs(step_y))
 	{
 		if (step_x < 0)
@@ -70,19 +47,13 @@ void update_movement(t_info *info, double step_x, double step_y)
 		if (step_y < 0)
 			y_p = (info->y_p / TILE_SIZE) - 1;
 		else
-		{
-			printf("y _ pos\n");
 			y_p = (info->y_p / TILE_SIZE) + 1;
-		}
 		x_p = info->x_p / TILE_SIZE;
 	}
-	printf("px = %f py = %f x = %f y = %f\n", info->x_p / 60, info->y_p / 60, x_p, y_p);
 	if (info->maps[(int)(info->y_p / TILE_SIZE)][(int)(info->x_p / TILE_SIZE)] == 'P')
 	{
-		printf("on door\n");
 		if (info->maps[(int)y_p][(int)x_p] != '1' && info->maps[(int)y_p][(int)x_p] != 'P')
 		{
-			printf("simo li kayn\n");
 			info->x_p = x_p * TILE_SIZE;
 			info->y_p = y_p * TILE_SIZE;
 		}
@@ -102,9 +73,13 @@ void	update_door_stat(t_info *info)
 	x = (int)info->x_p / TILE_SIZE;
 	y = (int)info->y_p / TILE_SIZE;
 	if (info->door_stat && info->maps[y][x] == 'P')
+	{
 		info->door_stat = 1;
+		return ;
+	}
 	else if (++info->door_stat > 1)
 		info->door_stat = 0;
+	info->index_y--;
 }
 
 void	bonus_hook(t_info *info, int c)
@@ -144,4 +119,3 @@ int	move_player(int c, t_info *info)
 		exit(0);
 	return (0);
 }
-
