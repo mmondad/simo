@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parssing1.c                                        :+:      :+:    :+:   */
+/*   parssing1_bonnus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmondad <mmondad@student.42.fr>            #+#  +:+       +#+        */
+/*   By: khmessah <khmessah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-09-06 10:13:15 by mmondad           #+#    #+#             */
-/*   Updated: 2024-09-06 10:13:15 by mmondad          ###   ########.fr       */
+/*   Created: 2024/09/06 10:13:15 by mmondad           #+#    #+#             */
+/*   Updated: 2024/10/12 20:11:32 by khmessah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonnus.h"
 
 void	set_player_data(t_info *info, int x, int y)
 {
@@ -32,6 +32,9 @@ void	check_nbr_player(t_info *info)
 		x = 0;
 		while (info->maps[y][x])
 		{
+			if (info->maps[y][x] == 'P' && x && y && !door_validator(info, x,
+					y))
+				print_error("error_in_door_stat\n");
 			if (is_player(info->maps[y][x]))
 			{
 				set_player_data(info, x, y);

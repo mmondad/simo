@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.c                                            :+:      :+:    :+:   */
+/*   cub3d_bonnus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: khmessah <khmessah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 08:46:02 by mmondad           #+#    #+#             */
-/*   Updated: 2024/10/12 21:03:19 by khmessah         ###   ########.fr       */
+/*   Updated: 2024/10/12 20:15:43 by khmessah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonnus.h"
 
 void	clean_line(t_info *info, char *line)
 {
@@ -39,13 +39,26 @@ void	new_maps(t_info *info)
 	}
 }
 
+int	move_mouse(int x, int y, t_info *info)
+{
+	static int	a;
+
+	if (x > a)
+		info->angle += 0.01;
+	else if (x < a)
+		info->angle -= 0.01;
+	a = x;
+	return (0);
+}
+
 void	ft_hook(t_info *info)
 {
 	init_window(info);
+	init_images(info);
 	init_texture(info);
 	mlx_hook(info->mlx_win, 17, 0, ft_exit, 0);
 	mlx_hook(info->mlx_win, 2, 1L << 0, move_player, info);
-	mlx_loop_hook(info->mlx, rendering_2d, info);
+	mlx_hook(info->mlx_win, 6, 1 << 6, move_mouse, info);
 	mlx_loop(info->mlx);
 	free_list(info, 0);
 }

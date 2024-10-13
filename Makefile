@@ -1,14 +1,15 @@
 CFLAGS	= -fsanitize=address -g3
 CC      = cc
 NFLAGS = -lmlx -lXext -lX11
-SRCS_C    = bonus/colors_bonus.c bonus/cub3d_bonus.c bonus/distance_bonus.c bonus/door_file_bonus.c\
-			bonus/draw_bonus.c bonus/free_bonus.c bonus/ft_split_bonus.c bonus/garbage_collector_bonus.c\
-			bonus/get_next_line_bonus.c bonus/inisial_bonus.c bonus/init_info_bonus.c bonus/map_bonus.c\
-			bonus/parssing1_bonus.c bonus/parssing_bonus.c bonus/player_bonus.c bonus/print_bonus.c\
-			bonus/render_maps_bonus.c  bonus/utils1_bonus.c bonus/utils_bonus.c\
-			bonus/validators_bonus.c
-SRC	= colors.c cub3d.c distance.c draw.c free.c ft_split.c garbage_collector.c get_next_line.c \
-	  inisial.c init_info.c parssing1.c parssing.c player.c print.c render_maps.c utils1.c utils.c
+SRCS_C    = bonus/colors_bonnus.c bonus/cub3d_bonnus.c bonus/distance_bonnus.c bonus/door_file_bonnus.c\
+			bonus/draw_bonnus.c bonus/free_bonnus.c bonus/ft_split_bonnus.c bonus/garbage_collector_bonnus.c\
+			bonus/get_next_line_bonnus.c bonus/inisial_bonnus.c bonus/init_info_bonnus.c bonus/map_bonnus.c\
+			bonus/parssing1_bonnus.c bonus/parssing_bonnus.c bonus/player_bonnus.c bonus/print_bonnus.c\
+			bonus/render_maps_bonnus.c bonus/utils1_bonnus.c bonus/utils_bonnus.c\
+			bonus/validators_bonnus.c bonus/check_bonnus.c bonus/dda_algo.c
+SRC	= colors.c cub3d.c distance.c draw.c free.c ft_split.c garbage_collector.c get_next_line.c draw_wall.c \
+	  inisial.c init_info.c parssing1.c parssing.c player.c print.c render_maps.c utils1.c utils.c check.c \
+	  fonction_heelp.c parssing2.c utils2.c render_maps1.c
 
 NAME = cub3d
 NAME_C = cub3d_bonus

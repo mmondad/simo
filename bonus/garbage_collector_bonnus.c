@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   garbage_collector.c                                :+:      :+:    :+:   */
+/*   garbage_collector_bonnus.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmondad <mmondad@student.42.fr>            #+#  +:+       +#+        */
+/*   By: khmessah <khmessah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-08-29 12:04:56 by mmondad           #+#    #+#             */
-/*   Updated: 2024-08-29 12:04:56 by mmondad          ###   ########.fr       */
+/*   Created: 2024/08/29 12:04:56 by mmondad           #+#    #+#             */
+/*   Updated: 2024/10/12 14:16:18 by khmessah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d_bonus.h"
+#include "cub3d_bonnus.h"
 
 void	add_back_h(t_garbage **list, t_garbage *new_node)
 {
