@@ -12,38 +12,6 @@
 
 #include "cub3d_bonnus.h"
 
-double	norm(double angle)
-{
-	if (angle < 0)
-		angle += 2 * M_PI;
-	if (angle > 2 * M_PI)
-		angle -= 2 * M_PI;
-	return (angle);
-}
-
-void	calcul_step(t_info *info, double count)
-{
-	info->lenght = (60 / (info->size * cos(count))) * ((WIDTH / 2)
-			/ tan(0.523599));
-	info->point_depart = (HEIGHT / 2) - (info->lenght / 2);
-	if (info->door_flag[0])
-		info->step = (double)info->texture[4].h / (double)info->lenght;
-	else if (info->flag == 0)
-	{
-		if (info->check == 1 || info->check == 2)
-			info->step = (double)info->texture[1].h / (double)info->lenght;
-		else
-			info->step = (double)info->texture[0].h / (double)info->lenght;
-	}
-	else
-	{
-		if (info->check == 1 || info->check == 4)
-			info->step = (double)info->texture[3].h / (double)info->lenght;
-		else
-			info->step = (double)info->texture[2].h / (double)info->lenght;
-	}
-}
-
 void	drawing_skay(t_info *info, double z)
 {
 	int	y;
@@ -54,32 +22,6 @@ void	drawing_skay(t_info *info, double z)
 		my_mlx_pixel_put(info, z, y, info->c_color_int);
 		y++;
 	}
-}
-
-void	drawing_wall_vertical(t_info *info, int flag, double j)
-{
-	int	x;
-	int	y;
-
-	if (info->door_flag[0])
-		flag = info->door_flag[0];
-	x = (int)(info->texture[flag].w * info->intersection_x / 60)
-		% info->texture[flag].w;
-	y = j;
-	info->color = get_color(y, x, info->texture[flag]);
-}
-
-void	drawing_wall_horizantal(t_info *info, int flag, double j)
-{
-	int	x;
-	int	y;
-
-	if (info->door_flag[0])
-		flag = info->door_flag[0];
-	y = j;
-	x = (int)(info->texture[flag].w * info->intersection_y / 60)
-		% info->texture[flag].w;
-	info->color = get_color(y, x, info->texture[flag]);
 }
 
 void	drawing_floor(t_info *info, double z)
@@ -96,21 +38,40 @@ void	drawing_floor(t_info *info, double z)
 	}
 }
 
-void	drawing_all_wall(t_info *info, double j)
+void	draw_floor(t_info *info, double z)
 {
-	if (info->flag == 0)
+	double	j;
+
+	j = info->step * info->lenght;
+	while (info->point_depart < HEIGHT)
 	{
-		if (info->check == 1 || info->check == 2)
-			drawing_wall_vertical(info, 1, j);
-		else
-			drawing_wall_vertical(info, 0, j);
+		drawing_all_wall(info, j);
+		my_mlx_pixel_put(info, (int)z, (int)info->point_depart, info->color
+			+ 10);
+		info->point_depart++;
+		j -= info->step;
 	}
-	else
+}
+
+void	draw_wall_game(t_info *info, double z)
+{
+	int		var;
+	double	j;
+
+	var = info->point_depart;
+	j = 0;
+	if (info->point_depart < 0)
 	{
-		if (info->check == 1 || info->check == 4)
-			drawing_wall_horizantal(info, 3, j);
-		else
-			drawing_wall_horizantal(info, 2, j);
+		j = info->step * (-info->point_depart);
+		info->point_depart = 0;
+	}
+	while (info->point_depart < HEIGHT && info->point_depart <= info->lenght
+		+ var)
+	{
+		drawing_all_wall(info, j);
+		my_mlx_pixel_put(info, z, info->point_depart, info->color);
+		info->point_depart++;
+		j += info->step;
 	}
 }
 
@@ -118,7 +79,6 @@ void	draw_vector(t_info *info)
 {
 	double	count;
 	double	z;
-	double	j;
 	int		var;
 
 	count = -M_PI / 6;
@@ -130,30 +90,8 @@ void	draw_vector(t_info *info)
 		calcul_distance(info, norm(info->angle + count));
 		calcul_step(info, count);
 		drawing_skay(info, z);
-		var = info->point_depart;
-		j = 0;
-		if (info->point_depart < 0)
-		{
-			j = info->step * (-info->point_depart);
-			info->point_depart = 0;
-		}
-		while (info->point_depart < HEIGHT && info->point_depart <= info->lenght
-			+ var)
-		{
-			drawing_all_wall(info, j);
-			my_mlx_pixel_put(info, z, info->point_depart, info->color);
-			info->point_depart++;
-			j += info->step;
-		}
-		j = info->step * info->lenght;
-		while (info->point_depart < HEIGHT)
-		{
-			drawing_all_wall(info, j);
-			my_mlx_pixel_put(info, (int)z, (int)info->point_depart, info->color
-				+ 10);
-			info->point_depart++;
-			j -= info->step;
-		}
+		draw_wall_game(info, z);
+		draw_floor(info, z);
 		z += 1;
 		count = count + RAD / (VIEW * 2);
 		info->door_flag[0] = 0;

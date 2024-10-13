@@ -166,10 +166,16 @@ void					render_minimap(t_info *info);
 void					init_images(t_info *info);
 int						get_color(int y, int x, t_image image);
 void					choose_door_image(t_info *info, int index);
+void					calcul_step(t_info *info, double count);
+void					drawing_all_wall(t_info *info, double j);
+char					*ft_strchr(char *str, char c);
+void					init_door_texture(t_info *info);
+
 
 /*         bonus       */
 
 /*          validators          */
+
 int						check_element_maps(t_info *info);
 void					*checker(t_info *info, void *data);
 void					init_start_images(t_info *info);
