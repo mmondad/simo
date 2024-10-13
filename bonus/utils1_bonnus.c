@@ -12,13 +12,6 @@
 
 #include "cub3d_bonnus.h"
 
-int	ft_isblank(char c)
-{
-	if (c <= 32)
-		return (1);
-	return (0);
-}
-
 int	ft_value_of(char c)
 {
 	if (c >= '0' && c <= '9')

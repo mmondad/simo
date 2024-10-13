@@ -226,7 +226,6 @@ int		check_extention_map(t_info *info);
 int		strcmp_path(char *s1, char *s2, int n);
 int		is_space(char c);
 char	*set_path(char *str);
-int		ft_isdegit(char c);
 int		strlen_pro(char *str, char flag);
 void	check_textures_path(t_info *info);
 int		the_biggest_line(t_info *info);

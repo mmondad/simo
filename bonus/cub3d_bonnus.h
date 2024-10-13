@@ -170,6 +170,7 @@ void					calcul_step(t_info *info, double count);
 void					drawing_all_wall(t_info *info, double j);
 char					*ft_strchr(char *str, char c);
 void					init_door_texture(t_info *info);
+void					set_player_data(t_info *info, int x, int y);
 
 
 /*         bonus       */
@@ -212,7 +213,7 @@ char					*ft_strdup(char *str, t_info *info);
 char					*ft_strjoin(char *s1, char *s2, t_info *info);
 int						ft_strlen(char *str);
 int						ft_strcmp(char *s1, char *s2);
-void					init_info(t_info *info, int ac, char **av);
+void					init_info(t_info *info, char **av);
 void					ft_putstr(char *str);
 void					print_error(char *str);
 int						ft_atoi(char *str, int i, int sign);

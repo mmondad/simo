@@ -12,6 +12,22 @@
 
 #include "cub3d_bonnus.h"
 
+int	is_map(char *str)
+{
+	while (*str && is_space(*str))
+		str++;
+	if (*str)
+		return (1);
+	return (0);
+}
+
+int	ft_isdegit(char c)
+{
+	if (c >= '0' && c <= '9')
+		return (1);
+	return (0);
+}
+
 int	is_player(char c)
 {
 	if (c == 'S' || c == 'N' || c == 'W' || c == 'E')

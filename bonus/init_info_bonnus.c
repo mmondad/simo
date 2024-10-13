@@ -23,6 +23,16 @@ void	init_start_images(t_info *info)
 		info->start_images[0].xpm_ptr, 0, 0);
 }
 
+int	ft_open(t_info *info)
+{
+	int	fd;
+
+	fd = open("./bonus/images.txt", O_RDONLY);
+	if (fd < 0)
+		free_list(info, 1);
+	return (fd);
+}
+
 void	init_images(t_info *info)
 {
 	int		x;
@@ -30,9 +40,9 @@ void	init_images(t_info *info)
 	int		fd;
 	char	*line;
 
-	fd = open("./bonus/images.txt", O_RDONLY);
-	y = 0;
-	while (y < WEAPONS)
+	fd = ft_open(info);
+	y = -1;
+	while (++y < WEAPONS)
 	{
 		x = 0;
 		while (x < 4)
@@ -49,13 +59,11 @@ void	init_images(t_info *info)
 						&info->images[y][x].endn));
 			x++;
 		}
-		y++;
 	}
 }
 
-void	init_info(t_info *info, int ac, char **av)
+void	init_info(t_info *info, char **av)
 {
-	info->ac = ac;
 	info->gun = 0;
 	info->garbage = NULL;
 	info->width = 0;
@@ -68,15 +76,11 @@ void	init_info(t_info *info, int ac, char **av)
 	info->path_no = NULL;
 	info->path_we = NULL;
 	info->path_so = NULL;
-	info->x_p = 0;
 	info->index_x = 0;
 	info->index_y = -1;
-	info->y_p = 0;
 	info->ceiling_color = NULL;
 	info->floor_color = NULL;
 	info->last_line = 0;
-	info->dir_x = 0;
-	info->dir_y = 0;
 	info->c = ft_malloc(sizeof(int) * 3, info);
 	info->f = ft_malloc(sizeof(int) * 3, info);
 }

@@ -69,7 +69,7 @@ int	main(int ac, char **av)
 
 	if (ac != 2)
 		print_error("arguments error\n");
-	init_info(&info, ac, av);
+	init_info(&info, av);
 	read_maps(&info);
 	check_textures_path(&info);
 	if (!info.path_ea || !info.path_so || !info.path_we || !info.path_no)

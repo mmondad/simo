@@ -12,13 +12,6 @@
 
 #include "cub3d_bonnus.h"
 
-void	set_player_data(t_info *info, int x, int y)
-{
-	info->x_p = (x * TILE_SIZE) + (TILE_SIZE / 2);
-	info->y_p = (y * TILE_SIZE) + (TILE_SIZE / 2);
-	init_angle(info, info->maps[y][x]);
-}
-
 void	check_nbr_player(t_info *info)
 {
 	int	x;
